@@ -1,8 +1,10 @@
-package steps;
+package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
@@ -10,7 +12,6 @@ public class DriverFactory {
     private static WebDriver driver;
 
     private DriverFactory() {
-        // Singleton tasarım deseni: Constructor private olarak tanımlandı.
     }
 
     public static WebDriver getDriver() {
@@ -25,12 +26,15 @@ public class DriverFactory {
 
         if (browser.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--disable-notifications");
             driver = new ChromeDriver();
+
         } else if (browser.equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.gecko.driver", "path/to/geckodriver");
+            System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
             driver = new FirefoxDriver();
         }
-
+        driver.navigate().refresh();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }

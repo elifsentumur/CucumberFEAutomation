@@ -1,0 +1,27 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %logger{36} - %highlight(%msg)%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <property name="COLOR_TRACE" value="cyan"/>
+    <property name="COLOR_DEBUG" value="blue"/>
+    <property name="COLOR_INFO" value="green"/>
+    <property name="COLOR_WARN" value="yellow"/>
+    <property name="COLOR_ERROR" value="red"/>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="utils.BasePage" level="debug" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.seleniumhq.selenium" level="error" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+</configuration>
